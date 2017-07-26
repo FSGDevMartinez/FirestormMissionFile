@@ -1,0 +1,309 @@
+author = "FSG Development Team";
+onLoadName = "FSG LakesideValley";
+onLoadMission = "A Roleplay mission developed by FireStormGaming";
+loadScreen = "textures\E76_AppleGate_Lake.paa";
+joinUnassigned = 1;
+disabledAI = 1;
+disableChannels[]={0,1,2,3,4,6};
+enableDebugConsole = 1;
+saving = 0;
+respawn = 3;
+respawnTemplates[] = {"Base"};
+respawndelay = 5;
+respawnDialog = 0;
+respawnOnStart = -1
+
+class Header
+{
+	gameType = RPG;
+	minPlayers = 1;
+	maxPlayers = 80;
+};
+
+wreckLimit = 3;
+wreckRemovalMinTime = 60;
+wreckRemovalMaxTime = 320;
+corpseLimit = 150;
+corpseRemovalMinTime = 999;
+corpseRemovalMaxTime = 9999;
+
+showHUD[] = {
+	1,	// Scripted HUD (same as showHUD command)
+	1,	// Vehicle + soldier info
+	1,	// Vehicle radar [HIDDEN]
+	0,	// Vehicle compass [HIDDEN]
+	0,	// Tank direction indicator
+	0,	// Commanding menu
+	0,	// Group Bar
+	1	// HUD Weapon Cursors
+};
+
+#include "CfgRemoteExec.hpp"
+#include "dialog\MasterHandler.h"
+#include "dialog\pickup.hpp"
+#include "dialog\openboard.hpp"
+
+class RscTitles {
+    #include "dialog\progress.hpp"
+    #include "dialog\hud_nameTags.h"
+    #include "dialog\a3lmsgsys.hpp"
+    #include "dialog\a3ljailhud.hpp"
+    #include "dialog\ALRP_Hud.hpp"
+    #include "dialog\statusbar.hpp"
+};
+
+class CfgFunctions
+{
+	#include "Functions.h"
+};
+
+class CfgSounds
+{
+    sounds[] = {};
+    class start
+    {
+        name = "start";
+        sound[] = {"@ALRPSounds\snds\start.ogg", 1, 1};
+        titles[] = {};
+    };
+    class alrp_notify
+    {
+        name = "alrp_notify";
+        sound[] = {"@ALRPSounds\snds\notify.ogg", 1, 1};
+        titles[] = {};
+    };
+	class siren
+    {
+        name = "siren";
+        sound[] = {"@ALRPSounds\snds\siren.ogg", 1, 1};
+        titles[] = {};
+    };
+    class endbeep
+    {
+        name = "endbeep";
+        sound[] = {"@ALRPSounds\snds\endbeep.ogg", 1, 1};
+        titles[] = {};
+    };
+    class panicbutton
+    {
+        name = "panicbutton";
+        sound[] = {"@ALRPSounds\snds\panicbutton.ogg", 1, 1};
+        titles[] = {};
+    };
+	class prisonalarm
+    {
+        name = "prisonalarm";
+        sound[] = {"@ALRPSounds\snds\new\prisonalarm.ogg", 1, 1};
+        titles[] = {};
+    };
+    class ssounds
+    {
+        name = "ssounds";
+        sound[] = {"@ALRPSounds\snds\ssounds.ogg", 1, 1};
+        titles[] = {};
+    };
+    class cuff
+    {
+        name = "cuff";
+        sound[] = {"@ALRPSounds\snds\new\cuff.ogg", 1, 1};
+        titles[] = {};
+    };
+    class win
+    {
+        name = "win";
+        sound[] = {"@ALRPSounds\snds\win.ogg", 1, 1};
+        titles[] = {};
+    };
+    class revived
+    {
+        name = "revived";
+        sound[] = {"@ALRPSounds\snds\revived.ogg", 1, 1};
+        titles[] = {};
+    };
+    class cough
+    {
+        name = "cough";
+        sound[] = {"@ALRPSounds\snds\new\cough.ogg", 1, 1};
+        titles[] = {};
+    };
+    class weed
+    {
+        name = "weed";
+        sound[] = {"@ALRPSounds\snds\new\weed.ogg", 1, 1};
+        titles[] = {};
+    };
+    class wedding
+    {
+        name = "wedding";
+        sound[] = {"@ALRPSounds\snds\new\wedding.ogg", 1, 1};
+        titles[] = {};
+    };
+    class spray
+    {
+        name = "spray";
+        sound[] = {"@ALRPSounds\snds\spray.ogg", 1, 1};
+        titles[] = {};
+    };
+    class ciggy
+    {
+        name = "ciggy";
+        sound[] = {"@ALRPSounds\snds\ciggy.ogg", 1, 1};
+        titles[] = {};
+    };
+    class punch1
+    {
+        name = "punch1";
+        sound[] = {"@ALRPSounds\snds\punch1.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class punch2
+    {
+        name = "punch2";
+        sound[] = {"@ALRPSounds\snds\punch2.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class punch3
+    {
+        name = "punch3";
+        sound[] = {"@ALRPSounds\snds\punch3.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class punch4
+    {
+        name = "punch4";
+        sound[] = {"@ALRPSounds\snds\punch4.ogg", 1, 1};
+        titles[] = {};
+    };
+};
+
+
+
+class CfgDebriefing
+{
+    class NotWhitelisted
+    {
+        title = "Not Whitelisted!";
+        subtitle = "You are not whitelisted!";
+        description = "Please contact a member of staff to be whitelisted.";
+        pictureBackground = "";
+        picture = "";
+        pictureColor[] = {0,0.3,0.6,1};
+    };
+
+    class Blacklisted
+    {
+        title = "Mission Failed";
+        subtitle = "You are blacklisted from cops";
+        description = "You are not allowed to be a cop due to previous actions and the admins have removed you from being a cop.";
+        pictureBackground = "";
+        picture = "";
+        pictureColor[] = {0,0.3,0.6,1};
+    };
+
+    class SpyGlass
+    {
+        title = "The SpyGlass sees you";
+        subTitle = "You were detected by the SpyGlass";
+        description = "You were detected for cheating and have been reported to the server. Enjoy your day.";
+        pictureBackground = "";
+        picture = "";
+        pictureColor[] = {0,0.3,0.6,1};
+    };
+
+    class Cunt
+    {
+        title = "Endmission is disabled!";
+        subTitle = "That feature is not currently enabled on this server.";
+        description = "Your gear has been wiped and a message has been sent to the admins to alert them of you attempting to do this. Enjoy your day.";
+        pictureBackground = "";
+        picture = "";
+        pictureColor[] = {0,0.3,0.6,1};
+    };
+};
+
+class CfgNotifications
+{
+    class MedicalRequestEmerg
+    {
+        title = "EMS Requested";
+        iconPicture = "\A3\ui_f\data\map\mapcontrol\taskIcon_ca.paa";
+        description = "%1";
+        duration = 5;
+        priority = 7;
+    };
+
+    class DeliveryAssigned
+    {
+        title = "Delivery Job Accepted";
+        iconPicture = "\A3\ui_f\data\map\mapcontrol\taskIcon_ca.paa";
+        description = "%1";
+        duration = 10;
+        priority = 7;
+    };
+
+    class DeliveryFailed
+    {
+        title = "Delivery Job Failed";
+        iconPicture = "\A3\ui_f\data\map\mapcontrol\taskiconfailed_ca.paa";
+        description = "%1";
+        duration = 7;
+        priority = 7;
+    };
+
+    class DeliverySucceeded
+    {
+        title = "Delivery Job Completed";
+        iconPicture = "\A3\ui_f\data\map\mapcontrol\taskIcondone_ca.paa";
+        description = "%1";
+        duration = 6;
+        priority = 6;
+    };
+
+    class TextMessage
+    {
+        title = "Received A Text Message";
+        iconPicture = "icons\messagenew.paa";
+        description = "%1";
+        duration = 10;
+        priority = 6;
+    };
+
+    class PoliceDispatch
+    {
+        title = "911 Dispatch Center";
+        iconPicture = "icons\messagepolice.paa";
+        description = "%1";
+        duration = 10;
+        priority = 6;
+    };
+
+    class AdminDispatch
+    {
+        title = "Admin Dispatch Center";
+        iconPicture = "icons\messageadmin.paa";
+        description = "%1";
+        duration = 10;
+        priority = 6;
+    };
+
+    class AdminMessage
+    {
+        title = "Admin Message";
+        iconPicture = "icons\messageadmin.paa";
+        description = "%1";
+        duration = 10;
+        priority = 5;
+    };
+        class mav_debriefing_INTERNAL_ERROR {
+        title = "VERIFICATION ERROR";
+        subtitle = "Your account was not verified";
+        description = "Due to technical problems the verification is currently not available, please try again later.";
+        pictureBackground = "";
+        picture = "";
+        pictureColor[] = {1,0,0,1};
+    };
+};
+#include "infiSTAR_AdminMenu.hpp"

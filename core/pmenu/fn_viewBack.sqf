@@ -1,0 +1,6 @@
+/*
+	VIEW BACK OF PLAYER DURING CLOTHING STORE LOOKING
+	WRITTEN BY GEORGE MATTHEWS AT VISCOSITYGAMING
+*/
+_facing = getDir player;
+player setDir (_facing - 180);
