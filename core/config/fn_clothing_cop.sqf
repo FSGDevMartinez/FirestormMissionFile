@@ -37,7 +37,7 @@ switch (_filter) do
 		_ret set[count _ret,["A3L_PDCHIEF","Deputy Chief Uniform",100]];
 		_ret set[count _ret,["TRYK_U_B_BLKTAN_CombatUniform","Command Clothing",100]];
 		_ret set[count _ret,["A3LRideAlongJumper","State Command Operation Uniform",100]];
-        _ret set[count _ret,["A3L_LVMS_AFB","Marshal Trial Uniform",100]];
+                _ret set[count _ret,["A3L_LVMS_AFB","Marshal Trial Uniform",100]];
 		_ret set[count _ret,["A3L_LVMS_AL","Marshal Uniform",100]];
 		_ret set[count _ret,["A3L_LVMS_Li","Marshal Command",100]];
 		_ret set[count _ret,["herpCOMMAND1","State Command Uniform",100]];
